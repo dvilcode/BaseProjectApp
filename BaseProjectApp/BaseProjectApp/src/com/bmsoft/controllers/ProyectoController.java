@@ -502,9 +502,13 @@ public class ProyectoController implements Initializable{
 			//Se ordenan los parametros necesarios para la generacion.
 			sourcePathList = getPathsFromConfig();
 			varList = getVariablesAndValues();
+			String projectPath = System.getProperty("user.dir");
+			String path = tipoSelectData.get( PARAMETER_TIPO_FIELD_PATH ).getAsString();
+			String sourceVM = subTipoSelectData.get( PARAMETER_SUBTIPO_FIELD_SRC_VM ).getAsString();
+			String pathLoader = projectPath + path + sourceVM;
 			
 			//Se genera el componente seleccionado.
-			proyectoModel.runGenerateComponent( varList, sourcePathList, textCodesJson, inpDestino.getText() );
+			proyectoModel.runGenerateComponent( varList, sourcePathList, textCodesJson, inpDestino.getText(), templatesList, pathLoader );
 			
 			
 			mensajes.mostrarMensajeBundleFx("global.label.done.generacion", mensajes.INFORMACION, null);

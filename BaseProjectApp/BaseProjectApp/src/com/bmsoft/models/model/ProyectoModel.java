@@ -1,15 +1,17 @@
 package com.bmsoft.models.model;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
+import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
-import org.apache.velocity.runtime.RuntimeConstants;
-import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 
 import com.bmsoft.controllers.ProyectoController;
 import com.bmsoft.models.interfaces.IProyectoModel;
@@ -23,7 +25,7 @@ public class ProyectoModel implements IProyectoModel{
 	
 
 	@Override
-	public void runGenerateComponent(HashMap<String, String> varList, List<String> pathList, JsonObject textCodesJson, String urlDestino)throws Exception {
+	public void runGenerateComponent(HashMap<String, String> varList, List<String> pathList, JsonObject textCodesJson, String urlDestino, List<String> templatesList , String pathLoader)throws Exception {
 		File newDirectory = null;
 		boolean isCreated = false;
 		boolean isPermission = false;
@@ -63,9 +65,30 @@ public class ProyectoModel implements IProyectoModel{
 				
 				// Valida la generacion del archivo.
 				if( directory.length > 1 ) { //Si el array es mayor a 1 indica que configuraron un archivo.
+				
+					
+					//Se guarda las propiedades del archivo a generar.
+					String[] objFile = directory[1].split( "\\" + PARAMETER_SIGNAL_DOT ); // Position 0 - Nombre | Position 1 - Extension 
+					
+					//Se inicializa el motor de velocity.
+					VelocityEngine engine = new VelocityEngine();
+					Properties props = new Properties();
+					System.out.println(pathLoader);
+				    props.put("file.resource.loader.path", pathLoader.replace( PARAMETER_SIGNAL_DIRECTORY_WINDOWS, PARAMETER_SIGNAL_DIRECTORY) );
+				    engine.init(props);
+					
+					//Se Inicializa el contexto de velocity con las variables a reemplazar.
+					VelocityContext context = new VelocityContext();
+					for( Map.Entry<String, String> variable : varList.entrySet() ) {
+						
+						String signalVariable = getSignalRoot( textCodesJson, ProyectoController.PARAMETER_TEXT_CODES_FIELD_VARIABLE );
+						String newKey = variable.getKey().replace( signalVariable, "");
+						
+						context.put( newKey, variable.getValue() );
+					}
 					
 					//Se genera el archivo asociado al directorio.
-					//generateFileToVelocity( newDirectory.getAbsolutePath(), directory[1], varList, textCodesJson);
+					generateFileToVelocity( newDirectory.getAbsolutePath(), engine, context, objFile, templatesList);
 				}
 				
 					
@@ -91,26 +114,32 @@ public class ProyectoModel implements IProyectoModel{
 	 * @throws Exception
 	 * @author Dv
 	 */
-	public void generateFileToVelocity(String urlPathCreated, String file, HashMap<String, String> varList, JsonObject textCodesJson)throws Exception{
-		
-		//Se inicializa el motor de velocity.
-		VelocityEngine engine = new VelocityEngine();
-		engine.setProperty( RuntimeConstants.RESOURCE_LOADER, "classpath");
-		engine.setProperty( "classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
-		engine.init();
-		
-		//Se Inicializa el contexto de velocity con las variables a reemplazar.
-		VelocityContext context = new VelocityContext();
-		for( Map.Entry<String, String> variable : varList.entrySet() ) {
-			
-			String signalVariable = getSignalRoot( textCodesJson, ProyectoController.PARAMETER_TEXT_CODES_FIELD_VARIABLE );
-			String newKey = variable.getKey().replace( signalVariable, "");
-			
-			context.put( newKey, variable.getValue() );
-		}
+	public void generateFileToVelocity(String urlPathCreated, VelocityEngine engine, VelocityContext context, String[] objFile, List<String> templatesList)throws Exception{
 		
 		//Se recupera la plantilla de la ruta configurada.
-		//TODO DV: Enviar la lista de Path de plantillas por adicionar las variables.
+		for( String template : templatesList) {
+			
+			
+			//Debe tener el mismo nombre la plantilla con el path del archivo de configuracion para hacer el match.
+			if( template.contains( objFile[ 0 ] ) == true ) {
+				
+				Template velTemplate = engine.getTemplate( objFile[ 0 ] + PARAMETER_SIGNAL_DOT + "vm" );
+				StringWriter strWriter = new StringWriter();
+				velTemplate.merge( context, strWriter);
+				
+				String urlFile = urlPathCreated + PARAMETER_SIGNAL_DIRECTORY_WINDOWS + objFile[ 0 ] + PARAMETER_SIGNAL_DOT + objFile[ 1 ] ;
+				File file = new File( urlFile);
+				file.createNewFile();
+				
+				FileOutputStream output = new FileOutputStream( urlFile );
+				output.write( strWriter.toString().getBytes() );
+				output.flush();
+				output.close();
+			
+				break;
+			}
+			
+		}
 		
 	}
 	

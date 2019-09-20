@@ -12,7 +12,8 @@ public interface IProyectoModel {
 	 * Ejecuta la logica para generar
 	 * el componente seleccionado por el usuario.
 	 * @author Dv
+	 * @param templatesList
 	 */
-	public void runGenerateComponent( HashMap<String, String> varList, List<String> pathList, JsonObject textCodesJson, String urlDestino) throws Exception;
+	public void runGenerateComponent( HashMap<String, String> varList, List<String> pathList, JsonObject textCodesJson, String urlDestino, List<String> templatesList, String pathLoader) throws Exception;
 	
 }
