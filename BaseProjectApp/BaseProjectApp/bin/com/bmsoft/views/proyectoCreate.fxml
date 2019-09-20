@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bmsoft.controllers.ProyectoController">
+   <children>
+      <Label alignment="CENTER" layoutX="294.0" layoutY="5.0" prefHeight="17.0" prefWidth="269.0" text="%proyecto.nombreAplicacion" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+        </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="312.0" layoutY="37.0" prefHeight="17.0" prefWidth="249.0" text="%proyecto.siglas">
+      	<font>
+           <Font name="System Bold" />
+        </font>
+      </Label>
+      <ImageView fitHeight="48.0" fitWidth="140.0" layoutX="59.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/bmsoft.jpg" />
+         </image></ImageView>
+      
+      <Button fx:id="btnGenerar" layoutX="708.0" layoutY="16.0" mnemonicParsing="false" onAction="#actionGenerar" prefHeight="25.0" prefWidth="73.0" text="%proyecto.boton.generar" />
+      <Button layoutX="790.0" layoutY="16.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="73.0" text="%proyecto.boton.limpiar" />
+      <Label alignment="CENTER_RIGHT" layoutX="169.0" layoutY="420.0" prefHeight="17.0" prefWidth="89.0" text="%proyecto.destino">
+      	<font>
+           <Font name="System Bold" />
+        </font>
+      </Label>
+      <TextField fx:id="inpDestino" disable="true" editable="false" layoutX="261.0" layoutY="416.0" prefHeight="25.0" prefWidth="380.0" />
+      <Button fx:id="btnChooser" layoutX="641.0" layoutY="416.0" mnemonicParsing="false" onAction="#actionSelectDestino" text="%proyecto.boton.elegir" />
+      <SplitPane dividerPositions="0.27720504009163804" layoutX="16.0" layoutY="67.0" prefHeight="326.0" prefWidth="864.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="306.0" prefWidth="236.0">
+               <children>
+                  <Button layoutX="-7.0" layoutY="-1.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="249.0" text="%proyecto.btn.component" />
+                  <Button layoutX="-7.0" layoutY="39.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="249.0" text="%proyecto.btn.dependency" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+	               	<Label layoutX="7.0" layoutY="15.0" prefHeight="17.0" prefWidth="89.0" text="%proyecto.lbl.tipoComponente">
+	                    <font>
+	                       <Font name="System Bold" size="12.0" />
+	                    </font></Label>
+	                 <ComboBox fx:id="cbxTipo" layoutX="95.0" layoutY="11.0" prefHeight="25.0" prefWidth="166.0" />
+	                 <Label layoutX="275.0" layoutY="15.0" prefHeight="17.0" prefWidth="89.0" text="%proyecto.lbl.subtipoComponente">
+	                    <font>
+	                       <Font name="System Bold" size="12.0" />
+	                    </font></Label>
+	                 <ComboBox fx:id="cbxSubtipo" layoutX="365.0" layoutY="11.0" prefHeight="25.0" prefWidth="242.0" />
+                  <ScrollPane layoutY="82.0" prefHeight="234.0" prefWidth="620.0">
+                    <content>
+                      <AnchorPane fx:id="ancPane" minHeight="0.0" minWidth="0.0" prefHeight="265.0" prefWidth="619.0">
+                           <children>
+                              
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </ScrollPane>
+                  <Label layoutX="14.0" layoutY="65.0" prefHeight="17.0" prefWidth="103.0" text="%proyecto.lbl.variables">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+      <Label layoutX="327.0" layoutY="460.0" prefHeight="17.0" prefWidth="391.0" text="%proyecto.lbl.requeridos">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

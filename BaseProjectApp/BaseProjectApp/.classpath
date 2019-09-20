@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
+	<classpathentry kind="lib" path="libs/slf4j-1.7.28/slf4j-api-1.7.28-sources.jar"/>
+	<classpathentry kind="lib" path="libs/slf4j-1.7.28/slf4j-api-1.7.28.jar"/>
+	<classpathentry kind="lib" path="libs/slf4j-1.7.28/slf4j-simple-1.7.28-sources.jar"/>
+	<classpathentry kind="lib" path="libs/slf4j-1.7.28/slf4j-simple-1.7.28.jar"/>
+	<classpathentry kind="lib" path="libs/commons-lang3-3.9/commons-lang3-3.9-sources.jar"/>
+	<classpathentry kind="lib" path="libs/commons-lang3-3.9/commons-lang3-3.9.jar"/>
+	<classpathentry kind="lib" path="libs/velocity-2.1/velocity-engine-core-2.1-sources.jar"/>
+	<classpathentry kind="lib" path="libs/velocity-2.1/velocity-engine-core-2.1.jar"/>
+	<classpathentry kind="lib" path="libs/velocity-2.1/velocity-engine-scripting-2.1-sources.jar"/>
+	<classpathentry kind="lib" path="libs/velocity-2.1/velocity-engine-scripting-2.1.jar"/>
+	<classpathentry kind="lib" path="libs/velocity-2.1/tools-3.0/velocity-tools-generic-3.0-sources.jar"/>
+	<classpathentry kind="lib" path="libs/velocity-2.1/tools-3.0/velocity-tools-generic-3.0.jar"/>
+	<classpathentry kind="lib" path="libs/velocity-2.1/tools-3.0/velocity-tools-view-3.0-sources.jar"/>
+	<classpathentry kind="lib" path="libs/velocity-2.1/tools-3.0/velocity-tools-view-3.0.jar"/>
+	<classpathentry kind="lib" path="libs/velocity-2.1/tools-3.0/velocity-tools-view-jsp-3.0-sources.jar"/>
+	<classpathentry kind="lib" path="libs/velocity-2.1/tools-3.0/velocity-tools-view-jsp-3.0.jar"/>
+	<classpathentry kind="lib" path="libs/gson-2.8.5/gson-2.8.5-sources.jar"/>
+	<classpathentry kind="lib" path="libs/gson-2.8.5/gson-2.8.5.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

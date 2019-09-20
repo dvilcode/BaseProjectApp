@@ -1,0 +1,62 @@
+{
+	"tipoComponente": {
+		"arquitectura":{
+			"codigo" : "1",
+			"nombre" : "Proyecto base",
+			"path" : "/com/bmsoft/fuentes/architectures/",
+			"subTipo" : {
+				"1" : {
+					"nombre" : "Spring MVC+Spring JDBC+Primefaces",
+					"srcVM" : "javeriana/",
+					"config" : "arch_javeriana.config"
+				}
+			}
+		},
+		"modulo" : {
+			"codigo" : "2",
+			"nombre" : "Modulo",
+			"path" : "/src/com/bmsoft/fuentes/modules/",
+			"subTipo" : {
+				"1" : {
+					"nombre" : "Modulo de procesos",
+					"srcVM" : "process/",
+					"config" : "modu_process.config"
+				},
+				"2" : {
+					"nombre" : "Modulo de tareas programadas",
+					"srcVM" : "tasks/",
+					"config" : "modu_tasks.config"
+				}
+			}
+		},
+		"componente" : {
+			"codigo" : "3",
+			"nombre" : "Componente",
+			"path" : "/src/com/bmsoft/fuentes/components/",
+			"subTipo" : {
+				"1" : {
+					"nombre" : "ManagedBeans",
+					"srcVM" : "comp_mg_beans/",
+					"config" : "mg_beans.config"
+				},
+				"2" : {
+					"nombre" : "Utilidades",
+					"srcVM" : "comp_utilities/",
+					"config" : "utilities.config"
+				},
+				"3" : {
+					"nombre" : "ParametroBean",
+					"srcVM" : "comp_pm_beans/",
+					"config" : "pm_beans.config"
+				}
+			}
+		}
+	},
+	"textCodes" : {
+		"root" : ">",
+		"folder" : "/",
+		"variable" : "$",
+		"file" : "-",
+		"extension" : "."
+	}
+}
