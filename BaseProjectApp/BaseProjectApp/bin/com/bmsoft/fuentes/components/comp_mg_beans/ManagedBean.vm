@@ -1,0 +1,11 @@
+import $packageName;
+
+class $className {
+	
+	public void $methodName()throws Exception{
+		$methodName();
+		Object $variableName = new Object();
+		$resultName = $variableName;
+	}
+
+}
