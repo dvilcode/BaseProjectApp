@@ -31,11 +31,16 @@ public class ProyectoModel implements IProyectoModel{
 		boolean isPermission = false;
 		boolean isExist = false;
 		List<String> newPathList = new ArrayList<>();
+		VelocityEngine engine = null;
+		VelocityContext context = null;
 		
 		try {
 			
 			//	Reemplaza los valores de variables si existen en el path.
 			newPathList = replaceVariablesIntoPath( varList, pathList, textCodesJson );
+			
+			//Se configura los parametros necesarios para utilizar Velocity.
+			configureVelocity(engine, context, pathLoader, varList, textCodesJson);
 			
 			//Se recorre los path formateados para la generacion de archivos.
 			for( String path : newPathList ) {
@@ -66,26 +71,8 @@ public class ProyectoModel implements IProyectoModel{
 				// Valida la generacion del archivo.
 				if( directory.length > 1 ) { //Si el array es mayor a 1 indica que configuraron un archivo.
 				
-					
 					//Se guarda las propiedades del archivo a generar.
-					String[] objFile = directory[1].split( "\\" + PARAMETER_SIGNAL_DOT ); // Position 0 - Nombre | Position 1 - Extension 
-					
-					//Se inicializa el motor de velocity.
-					VelocityEngine engine = new VelocityEngine();
-					Properties props = new Properties();
-					System.out.println(pathLoader);
-				    props.put("file.resource.loader.path", pathLoader.replace( PARAMETER_SIGNAL_DIRECTORY_WINDOWS, PARAMETER_SIGNAL_DIRECTORY) );
-				    engine.init(props);
-					
-					//Se Inicializa el contexto de velocity con las variables a reemplazar.
-					VelocityContext context = new VelocityContext();
-					for( Map.Entry<String, String> variable : varList.entrySet() ) {
-						
-						String signalVariable = getSignalRoot( textCodesJson, ProyectoController.PARAMETER_TEXT_CODES_FIELD_VARIABLE );
-						String newKey = variable.getKey().replace( signalVariable, "");
-						
-						context.put( newKey, variable.getValue() );
-					}
+					String[] objFile = directory[1].split( "\\" + PARAMETER_SIGNAL_DOT ); // Position 0 - Nombre | Position 1 - Extension
 					
 					//Se genera el archivo asociado al directorio.
 					generateFileToVelocity( newDirectory.getAbsolutePath(), engine, context, objFile, templatesList);
@@ -100,6 +87,38 @@ public class ProyectoModel implements IProyectoModel{
 			e.printStackTrace();
 			
 			throw e;
+		}
+		
+	}
+	
+	/**
+	 * Configura y carga los parametros necesarios
+	 * para utilizar la implementacion de Velocity
+	 * @param engine
+	 * @param context
+	 * @param pathLoader
+	 * @param varList
+	 * @param textCodesJson
+	 * @throws Exception
+	 */
+	private void configureVelocity( VelocityEngine engine, VelocityContext context, String pathLoader, HashMap<String, String> varList, JsonObject textCodesJson)throws Exception{
+		
+		//Se inicializa el motor de velocity.
+		engine = new VelocityEngine();
+		Properties props = new Properties();
+		System.out.println(pathLoader);
+	    props.put("file.resource.loader.path", pathLoader.replace( PARAMETER_SIGNAL_DIRECTORY_WINDOWS, PARAMETER_SIGNAL_DIRECTORY) );
+	    engine.init(props);
+		
+		
+		//Se Inicializa el contexto de velocity con las variables a reemplazar.
+		context = new VelocityContext();
+		for( Map.Entry<String, String> variable : varList.entrySet() ) {
+			
+			String signalVariable = getSignalRoot( textCodesJson, ProyectoController.PARAMETER_TEXT_CODES_FIELD_VARIABLE );
+			String newKey = variable.getKey().replace( signalVariable, "");
+			
+			context.put( newKey, variable.getValue() );
 		}
 		
 	}
