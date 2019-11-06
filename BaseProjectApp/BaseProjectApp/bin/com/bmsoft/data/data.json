@@ -56,7 +56,8 @@
 		"root" : ">",
 		"folder" : "/",
 		"variable" : "$",
-		"file" : "-",
-		"extension" : "."
+		"file" : "<",
+		"extension" : ".",
+		"ignoreName" : "!"
 	}
 }

@@ -31,8 +31,8 @@ public class ProyectoModel implements IProyectoModel{
 		boolean isPermission = false;
 		boolean isExist = false;
 		List<String> newPathList = new ArrayList<>();
-		VelocityEngine engine = null;
-		VelocityContext context = null;
+		VelocityEngine engine = new VelocityEngine();
+		VelocityContext context = new VelocityContext();
 		
 		try {
 			
@@ -75,7 +75,7 @@ public class ProyectoModel implements IProyectoModel{
 					String[] objFile = directory[1].split( "\\" + PARAMETER_SIGNAL_DOT ); // Position 0 - Nombre | Position 1 - Extension
 					
 					//Se genera el archivo asociado al directorio.
-					generateFileToVelocity( newDirectory.getAbsolutePath(), engine, context, objFile, templatesList);
+					generateFileToVelocity( newDirectory.getAbsolutePath(), engine, context, objFile, templatesList, textCodesJson);
 				}
 				
 					
@@ -104,7 +104,6 @@ public class ProyectoModel implements IProyectoModel{
 	private void configureVelocity( VelocityEngine engine, VelocityContext context, String pathLoader, HashMap<String, String> varList, JsonObject textCodesJson)throws Exception{
 		
 		//Se inicializa el motor de velocity.
-		engine = new VelocityEngine();
 		Properties props = new Properties();
 		System.out.println(pathLoader);
 	    props.put("file.resource.loader.path", pathLoader.replace( PARAMETER_SIGNAL_DIRECTORY_WINDOWS, PARAMETER_SIGNAL_DIRECTORY) );
@@ -112,7 +111,6 @@ public class ProyectoModel implements IProyectoModel{
 		
 		
 		//Se Inicializa el contexto de velocity con las variables a reemplazar.
-		context = new VelocityContext();
 		for( Map.Entry<String, String> variable : varList.entrySet() ) {
 			
 			String signalVariable = getSignalRoot( textCodesJson, ProyectoController.PARAMETER_TEXT_CODES_FIELD_VARIABLE );
@@ -133,7 +131,26 @@ public class ProyectoModel implements IProyectoModel{
 	 * @throws Exception
 	 * @author Dv
 	 */
-	public void generateFileToVelocity(String urlPathCreated, VelocityEngine engine, VelocityContext context, String[] objFile, List<String> templatesList)throws Exception{
+	public void generateFileToVelocity(String urlPathCreated, VelocityEngine engine, VelocityContext context, String[] objFile, List<String> templatesList, JsonObject textCodesJson)throws Exception{
+		String nameFile = "";
+		String extFile = objFile[ objFile.length -1 ];
+		String signalIgnore = getSignalRoot( textCodesJson, ProyectoController.PARAMETER_TEXT_CODES_FIELD_IGNORE_NAME );
+		
+		//Se valida la cantidad de nombres del archivo y se ajusta para su funcionamiento.
+		if(objFile.length == 2) {
+			
+			nameFile = objFile[0];
+			
+		} else if(objFile.length > 2 ) {
+			
+			for(int i=0; i< objFile.length -1; i++) {
+				nameFile = nameFile + objFile[ i ];
+				
+				if( i != objFile.length -2 ) {
+					nameFile = nameFile + PARAMETER_SIGNAL_DOT;
+				}
+			}
+		}
 		
 		//Se recupera la plantilla de la ruta configurada.
 		for( String template : templatesList) {
@@ -142,11 +159,16 @@ public class ProyectoModel implements IProyectoModel{
 			//Debe tener el mismo nombre la plantilla con el path del archivo de configuracion para hacer el match.
 			if( template.contains( objFile[ 0 ] ) == true ) {
 				
-				Template velTemplate = engine.getTemplate( objFile[ 0 ] + PARAMETER_SIGNAL_DOT + "vm" );
+				Template velTemplate = engine.getTemplate( nameFile + PARAMETER_SIGNAL_DOT + "vm" );
 				StringWriter strWriter = new StringWriter();
 				velTemplate.merge( context, strWriter);
 				
-				String urlFile = urlPathCreated + PARAMETER_SIGNAL_DIRECTORY_WINDOWS + objFile[ 0 ] + PARAMETER_SIGNAL_DOT + objFile[ 1 ] ;
+				//Valida si el nombre se ignora en la generacion.
+				if( nameFile.contains( signalIgnore ) == true) {
+					nameFile = "";
+				}
+				
+				String urlFile = urlPathCreated + PARAMETER_SIGNAL_DIRECTORY_WINDOWS + nameFile + PARAMETER_SIGNAL_DOT + extFile ;
 				File file = new File( urlFile);
 				file.createNewFile();
 				

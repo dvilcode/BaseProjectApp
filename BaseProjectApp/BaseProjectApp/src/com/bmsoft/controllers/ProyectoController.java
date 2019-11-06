@@ -61,13 +61,13 @@ public class ProyectoController implements Initializable{
 	
 	/* Campos de la estructura del JSON que contiene la informacion */
 	private static final String PARAMETER_TIPO_COMPONENTE_JSON = "tipoComponente";
-	private static final String PARAMETER_TIPO_COMPONENT = "componente";
+//	private static final String PARAMETER_TIPO_COMPONENT = "componente";
 	private static final String PARAMETER_TIPO_FIELD_PATH = "path";
 	
 	private static final String PARAMETER_SUBTIPO_COMPONENTE = "subTipo";
 	private static final String PARAMETER_SUBTIPO_FIELD_NAME = "nombre";
 	private static final String PARAMETER_SUBTIPO_FIELD_SRC_VM = "srcVM";
-	//private static final String PARAMETER_SUBTIPO_FIELD_TEMPLATE_VM = "plantillaVm";
+//	private static final String PARAMETER_SUBTIPO_FIELD_TEMPLATE_VM = "plantillaVm";
 	private static final String PARAMETER_SUBTIPO_FIELD_CONFIG = "config";
 	
 	public static final String PARAMETER_TEXT_CODES = "textCodes";
@@ -75,6 +75,7 @@ public class ProyectoController implements Initializable{
 	public static final String PARAMETER_TEXT_CODES_FIELD_FILE = "file";
 	public static final String PARAMETER_TEXT_CODES_FIELD_EXTENSION = "extension";
 	public static final String PARAMETER_TEXT_CODES_FIELD_VARIABLE = "variable";
+	public static final String PARAMETER_TEXT_CODES_FIELD_IGNORE_NAME = "ignoreName";
 	
 	/* Objetos utilizados en el funcionamiento de la aplicacion */
 	private ProyectoDTO proyectoSelected;
