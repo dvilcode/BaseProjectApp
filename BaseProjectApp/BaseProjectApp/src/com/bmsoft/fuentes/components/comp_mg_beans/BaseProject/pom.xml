@@ -24,7 +24,7 @@
 		<org.javassist.version>3.15.0-GA</org.javassist.version>
 		<commons.dbcp.version>1.4</commons.dbcp.version>
 		<org.springframework.version>3.2.6.RELEASE</org.springframework.version>
-		<org.springsec.version>3.2.5.RELEASE</org.springsec.version>
+		<org.springsec.version>5.3.3.RELEASE</org.springsec.version>
 		<junit.version>4.8.1</junit.version>
 		<tomcat-servlet-api.version>7.0.50</tomcat-servlet-api.version>
 		<javax.servlet.jstl.version>1.1.2</javax.servlet.jstl.version>
