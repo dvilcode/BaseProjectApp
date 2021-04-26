@@ -37,7 +37,7 @@
 		<com.sun.faces.version>2.2.13</com.sun.faces.version>
 		<org.primefaces.version>6.1</org.primefaces.version>
 		<commons-fileupload.version>1.2.1</commons-fileupload.version>
-		<commons-io.version>1.4</commons-io.version>
+		<commons-io.version>2.7</commons-io.version>
 		<javax.el.version>2.2.1</javax.el.version>
 		<build.encoding>UTF-8</build.encoding>
 		<org.primefaces.extensions.version>1.0.8</org.primefaces.extensions.version>
